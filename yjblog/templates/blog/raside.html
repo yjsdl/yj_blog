@@ -1,0 +1,50 @@
+{% load static %}
+{% load blog_tags %}
+{% get_site_configs as SITE_CONFIGS %}
+
+
+<aside class="l_side">
+
+
+    <!-- 文章目录 -->
+    <section class="toc-wrapper">
+        <header class="pure toc-show-hide">
+            <div><i id="toc-icon" class="fas fa-caret-down fa-fw" aria-hidden="true"></i>文章目录</div>
+        </header>
+        <div class="content pure" id="toc-content">
+            <ol class="toc"></ol>
+        </div>
+    </section>
+
+    <!-- 侧边栏友情链接插件 -->
+    <section class="list">
+        <header class="pure"><div><i class="fas fa-medal fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;友情链接</div></header>
+        <div class="content pure">
+            <ul class="entry">
+                {% get_links as links %}
+                {% for link in links %}
+                <li><a class="flat-box waves-effect waves-block" title="{{ link.name }}" href="{{ link.url }}" target="_blank"><div class="name"><i class="fas fa-link fa-fw" aria-hidden="true"></i> &nbsp;&nbsp;{{ link.name }}</div></a></li>
+                {% empty %}
+                <li><a class="flat-box waves-effect waves-block" title="" href="{% url 'blog:About' %}"><div class="name"><i class="fas fa-comment-dots fa-fw" aria-hidden="true"></i> &nbsp;&nbsp;暂无友链，互换友链请留言我!</div></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <!-- 侧边栏音乐插件 -->
+    {% get_music as music %}
+    {% if music %}
+    <section class="music">
+        <header class="pure">
+            <div><i class="fas fa-compact-disc fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;音乐专栏</div>
+            <a class="rightBtn" target="_blank" rel="external nofollow noopener noreferrer" href="{{ music.home_url }}" title="{{ music.home_url }}"><i class="far fa-heart fa-fw"></i></a>
+        </header>
+        <div class="content pure">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+            <div class="aplayer" {% if music.autoplay %}data-autoplay="true"{% endif %} data-theme="#1BCDFC" data-server="{{ music.server }}" data-type="{{ music.type }}" data-id="{{ music.play_id }}" data-volume="0.7">
+            <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+        </div>
+    </section>
+    {% endif %}
+</aside>

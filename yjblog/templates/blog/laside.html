@@ -1,0 +1,54 @@
+{% load static %}
+{% load blog_tags %}
+{% get_site_configs as SITE_CONFIGS %}
+
+
+<aside class="l_side">
+
+    <!-- 侧边栏用户插件 -->
+    <section class="author">
+        <div class="content pure">
+            <div class="avatar"><img class="avatar" src="{% static 'images/avatar.png' %}"></div>
+            <div class="text">
+                <p><span id="jinrishici-sentence">台上凭栏干，犹怯春寒冻。</span></p>
+                <script src="{% static 'js/jinrishici.js' %}" charset="utf-8"></script>
+            </div>
+            <div class="social-wrapper">
+                <a href="mailto:{{ SITE_CONFIGS.email }}" class="social flat-btn waves-effect waves-button" target="_blank" rel="external"><i class="social fas fa-envelope" aria-hidden="true"></i></a>
+                <a href="http://github.com/yjsdl" class="social flat-btn waves-effect waves-button" target="_blank" rel="external"><i class="social fab fa-github" aria-hidden="true"></i></a>
+                <a href="http://www.weibo.com" class="social flat-btn waves-effect waves-button" target="_blank" rel="external nofollow noopener noreferrer"><i class="social fab fa-weibo" aria-hidden="true"></i></a>
+                <a href="http://music.163.com" class="social flat-btn waves-effect waves-button" target="_blank" rel="external nofollow noopener noreferrer"><i class="social fas fa-headphones-alt" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 侧边栏热门标签插件 -->
+    <section class="tagcloud">
+        <header class="pure"><div><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div></header>
+        <div class="content pure">
+            {% get_tags as tags_list %}
+            {% for tag in tags_list.tags %}
+            <a href="{% url 'blog:tags' tag.name %}" style="" title="{{ tag.num_posts }}个话题">{{ tag.name }}({{ tag.num_posts }})</a>
+            {% empty %}
+                <a></a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- 侧边栏广告栏插件 -->
+    <section class="plain">
+        <header class="pure">
+            <div><i class="fas fa-bullhorn fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;广告位!</div>
+        </header>
+
+        <div class="content pure">
+            {% get_advertising as advertising %}
+            {% for ad in advertising %}
+            <a title="{{ ad.ad_name }}" href="{{ ad.ad_url }}" target="_blank"><img width="100%" src="{{ ad.img_url.url }}"></a>
+            {% endfor %}
+        </div>
+
+    </section>
+
+</aside>
+<script src="{% static 'js/aside.js' %}"></script>

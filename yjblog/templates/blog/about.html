@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load blog_tags %}
+{% get_site_configs as SITE_CONFIGS %}
+
+{% block title %}
+    {{ SITE_CONFIGS.sitename }} 关于本站
+{% endblock %}
+
+{% block l_main %}
+<div class="l_main">
+    <!-- 正文部分 -->
+    <article id="post" class="post white-box article-type-post" itemscope="" itemprop="blogPost">
+
+        <!-- 正文 -->
+        <section class="article typo">
+            <div class="article-entry" itemprop="articleBody" id="article_content">{{ post.body | safe }}</div>
+
+            <section class="meta" id="footer-meta">
+                <hr>
+                <div class="new-meta-box">
+                    <div class="new-meta-item date" itemprop="dateUpdated">
+                        <a class="notlink"><i class="fas fa-pencil-alt" aria-hidden="true"></i> {{ post.modified_time | date:'Y-m-d' }}</a>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+    </article>
+    <br>
+
+
+</div>
+
+{% endblock %}
